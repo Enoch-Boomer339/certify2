@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Fuw from '../assets/fuw.png'
 
 
 const Result = () => {
@@ -18,7 +19,7 @@ const Result = () => {
         <div className='w-full flex flex-col border bg-[#e8f5ee] border-[#42554bd3] rounded-xl'>
           <div className='flex flex-row mb-4 rounded-t-xl p-3 bg-[#0d2a4e]'>
             <div>
-              <img src="/src/assets/fuw.png" alt="Logo" className='w-10 h-10 object-contain' />
+              <img src={Fuw} alt="Logo" className='w-10 h-10 object-contain' />
             </div>
             <div className='flex flex-row'>
             <div>
