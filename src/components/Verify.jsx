@@ -26,7 +26,7 @@ const Verify = () => {
 
                     <div className='flex'>
                         <input type="text" placeholder='0x3a9fBc2d1e7b...' className='border p-2' />
-                        <Link to='result' className='bg-[#0d2a4e] text-white ml-4 p-2'>Verify ➙</Link>
+                        <Link to='/result' className='bg-[#0d2a4e] text-white ml-4 p-2'>Verify ➙</Link>
                     </div>
                     <p>The id starts with 0x and is printed at the buttom of every certificate as from the year 2027-till date</p>
                 </div>
