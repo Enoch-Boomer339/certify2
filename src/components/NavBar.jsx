@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import FuwLogo from '../assets/fuw.png'
+
 
 const NavBar = () => {
   return (
@@ -10,7 +10,7 @@ const NavBar = () => {
         <div style={{backgroundColor: '#0d2a4e', color: 'white'}} className='flex justify-between items-center rounded-2xl'>
           <div className='flex flex-row  '>
             <div className='logo pl-16 mr-4 pt-2'>
-              <img src={FuwLogo} alt="Logo" className='w-10 h-10 object-contain' />
+              <img src="/src/assets/fuw.png" alt="Logo" className='w-10 h-10 object-contain' />
             </div>
 
             <div className='Name of website gap-2 p-2'>

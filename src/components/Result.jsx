@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import FuwLogo from '../assets/fuw.png'
 
 
 const Result = () => {
@@ -19,14 +18,14 @@ const Result = () => {
         <div className='w-full flex flex-col border bg-[#e8f5ee] border-[#42554bd3] rounded-xl'>
           <div className='flex flex-row mb-4 rounded-t-xl p-3 bg-[#0d2a4e]'>
             <div>
-              <img src={FuwLogo} alt="Logo" className='w-10 h-10 object-contain' />
+              <img src="/src/assets/fuw.png" alt="Logo" className='w-10 h-10 object-contain' />
             </div>
             <div className='flex flex-row'>
             <div>
               <h2 style={{ color: 'white' }}>Federal University Wukari</h2>
               <h3 style={{ color: '#b48c32' }}>Official Academic Certificate</h3>
             </div>
-              <div className='ml-88 mt-2' >
+              <div className='ml-88 mt-8' >
               <Link to='/home' className='bg-[#1a4274] w-15 rounded-2xl text-white ml-4 p-2'>Home</Link>
               </div>
             </div>
