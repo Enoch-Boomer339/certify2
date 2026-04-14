@@ -26,9 +26,6 @@ const Result = () => {
               <h2 style={{ color: 'white' }}>Federal University Wukari</h2>
               <h3 style={{ color: '#b48c32' }}>Official Academic Certificate</h3>
             </div>
-              <div className='ml-88 mt-8' >
-              <Link to='/home' className='bg-[#1a4274] w-15 rounded-2xl text-white ml-4 p-2'>Home</Link>
-              </div>
             </div>
             
           </div>
