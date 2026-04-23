@@ -25,7 +25,7 @@ const App = () => {
 				<Route path='/result' element={<ThirdPage />} />
 				<Route path='/admin' element={<AdminPage />} />
 				<Route path='/admin2' element={<AdminPage2 />} />
-				<Route path='/certificatepdf' element={<CertificatePdf />} />
+				<Route path='/certificate' element={<CertificatePdf />} />
 				
 			</Routes>
 		</BrowserRouter>

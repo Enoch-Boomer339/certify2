@@ -6,4 +6,12 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	base:'/',
 	plugins: [react(), tailwindcss()],
+	optimizeDeps: {
+    include: ['@react-pdf/renderer'],
+  	},
+	build: {
+    commonjsOptions: {
+      include: [/@react-pdf/, /node_modules/],
+    },
+	}
 });
