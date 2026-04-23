@@ -17,8 +17,8 @@ const NavBar = () => {
         <div className='flex justify-between w-full px-6 py-3'>
           <div className='flex'>
             {/* logo */}
-            <div className='pl-16 mr-4 pt-3'>
-              <img src={Fuw} alt="Logo" className='w-10 h-10 object-contain' />
+            <div className='pl-16 max-[500px]:pl-0 mr-4 pt-3'>
+              <img src={Fuw} alt="Logo" className='w-10 h-10 min-[430px]:flex hidden object-contain' />
             </div>
 
             <div className='space-y-2 p-2'>
@@ -55,7 +55,7 @@ const NavBar = () => {
           </div>
 
           {isMenuOpen ? (
-           <div className='flex-col pl-23 gap-8 link-none pr-16 flex md:hidden '>
+           <div className='flex-col pl-23 max-[500px]:pl-11 gap-8 link-none pr-16 flex md:hidden '>
               <NavLink to="/home" className={({ isActive }) => 
               isActive ? 
             'text-[#b48c32] underline'
