@@ -1,4 +1,4 @@
-import { Document, Page, Text } from '@react-pdf/renderer'
+import { Document, Page, Text, View } from '@react-pdf/renderer'
 import React from 'react'
 
 const CertificatePdf = ({styles}) => {
@@ -9,7 +9,12 @@ const CertificatePdf = ({styles}) => {
         <Document>
 
             <Page size={'A4'} style={styles.page}>
-                <Text>Hello, World!</Text>
+                <View>
+
+                    <Text>Certificate of Achievement</Text>
+                    <Text></Text>
+
+                </View>
             </Page>
 
         </Document>
