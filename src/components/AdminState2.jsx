@@ -60,7 +60,7 @@ const AdminState2 = () => {
                 </div>
 
                     <div className='pl-28'>
-                        <Link to='/certificatepdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md p-3 px-17 py-2.5 mt-3.5'>Issue Certificate</Link>
+                        <Link to='/previewpdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md p-3 px-17 py-2.5 mt-3.5'>Issue Certificate</Link>
                     </div>
 
             </div>

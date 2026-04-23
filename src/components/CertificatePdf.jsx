@@ -1,21 +1,21 @@
-import { Document, Page, PDFViewer, Text } from '@react-pdf/renderer'
+import { Document, Page, Text } from '@react-pdf/renderer'
 import React from 'react'
 
-const CertificatePdf = () => {
+const CertificatePdf = ({styles}) => {
   return (
     
-    <PDFViewer width='100%' height='100%' className='min-h-125'>
+    
 
         <Document>
 
-            <Page size={'A4'}>
+            <Page size={'A4'} style={styles.page}>
                 <Text>Hello, World!</Text>
             </Page>
 
         </Document>
 
-    </PDFViewer>
+    
   )
 }
 
-export default CertificatePdf
+export default CertificatePdf;
