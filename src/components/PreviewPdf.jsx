@@ -13,13 +13,23 @@ Font.register({
   page: {
     padding: 40,
     fontSize: 14,
-    backgroundColor: "#fdfdfd",
+    backgroundColor: "#FFFDF5",
     height: "100%",
     textAlign: "center"
   },
 
+  watermark: {
+    position: "absolute",
+    width: "50%",
+    height: "50%",
+    alignSelf: "center",
+    borderRadius: 20,
+    opacity: 0.1,
+    zIndex: -1
+  },
+
   border: {
-    border: "5pt solid green",
+    border: "5pt solid #006400",
     padding: 25,
     borderRadius: 20,
     height: "100%",
@@ -39,7 +49,7 @@ Font.register({
   title: {
     fontSize: 33,
     marginBottom: 20,
-    color: "#444",
+    color: "#D4AF37",
     fontFamily: "Oswald"
   },
 
@@ -50,17 +60,34 @@ Font.register({
     fontFamily: "Times-Roman"
   },
 
+  classdes: {
+    fontSize: 16,
+    marginBottom: 40,
+    fontFamily: "Times-Roman",
+    color: "#333333"
+  },
+
+  classification: {
+    fontSize: 26,
+    marginVertical: 10,
+    color: "#002147",
+    fontFamily: "Oswald",
+    fontWeight: "bold"
+  },
+
   name: {
     fontSize: 26,
-    marginVertical: 20,
-    color: "#111",
-    fontFamily: "Oswald"
+    marginVertical: 10,
+    color: "#002147",
+    fontFamily: "Oswald",
+    fontWeight: "bold"
   },
 
   body: {
     fontSize: 16,
     marginBottom: 40,
-    fontFamily: "Times-Roman"
+    fontFamily: "Times-Roman",
+    color: "#333333"
   },
 
   text: {
@@ -81,7 +108,14 @@ Font.register({
 
   date: {
     fontSize: 12,
-    color: "grey"
+    color: "grey",
+    marginLeft: 6
+  },
+
+  official_and_date: {
+    display: "flex",
+    flexDirection: "coloumn",
+    alignItems: "center"
   },
 
   footer1: {
@@ -100,6 +134,8 @@ Font.register({
   qrcrest: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 15
   },
 
