@@ -26,42 +26,50 @@ const AdminState2 = () => {
                 <div className='flex flex-row  justify-between mb-3'>
                     <div className='flex flex-col'>
                         <label>STUDENT NAME</label>
-                        <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58' />
+                        <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58 p-2 rounded-md' />
                     </div>
 
                     <div className='flex flex-col'>
                         <label>MATRIC NUMBER</label>
-                        <input type="text" placeholder='CIS/CSC/22/041' className='border w-50' />
+                        <input type="text" placeholder='CIS/CSC/22/041' className='border w-50 p-2 rounded-md' />
                     </div>
                 </div>
 
                 <div className='flex flex-col justify-between mb-3' >
                         <label>PROGRAMME</label>
-                        <input type="text" placeholder='B.Sc Computer Science' className='border' />
+                        <input type="text" placeholder='B.Sc Computer Science' className='border p-2 rounded-md' />
                 </div>
 
-                <div className='flex flex-row justify-between mb-3'>
-                    <div className='flex flex-col '>
-                        <label>CLASSIFICATION</label>
-                        <select className='border w-60 p-1 bg-amber-50 gap-1.5'>
-                            <option value="">First Class</option>
-                            <option value="first">Second Class Upper Division</option>
-                            <option value="second">Second Class Lower Division</option>
-                            <option value="third">Third Class Upper Division</option>
-                            <option value="fourth">Third Class Lower Division</option>
-                            <option value="fifth">Pass</option>
-                        </select>
+                <div className='flex flex-col justify-center mb-3'>
+                    <div className='flex flex-row gap-11 mb-4'>
+                        <div className='flex flex-col '>
+                            <label>CLASSIFICATION</label>
+                            <select className='border w-60 p-2 bg-amber-50 rounded-md gap-1.5'>
+                                <option value="">First Class</option>
+                                <option value="first">Second Class Upper Division</option>
+                                <option value="second">Second Class Lower Division</option>
+                                <option value="third">Third Class Upper Division</option>
+                                <option value="fourth">Third Class Lower Division</option>
+                                <option value="fifth">Pass</option>
+                            </select>
+                        </div>
+
+                        <div className='flex flex-col'>
+                        <label>DATE OF GRADUATION:</label>
+                        <input type="text" placeholder='20/2027' className='border w-58 p-2 rounded-md' />
+                        </div>
+
                     </div>
 
-                    <div className='flex flex-col ml-6'>
-                        <label>DATE ISSUED</label>
-                        <input type="text" placeholder='20/2027' className='border w-58' />
+                        <div className='flex flex-row justify-center gap-2 items-center mb-4'>
+                            <label>DATE ISSUED:</label>
+                            <p className='rounded-md'> {new Date().toLocaleDateString()}  </p>
+                        </div>
+
+                    <div className='flex justify-center items-center'>
+                        <Link to='/previewpdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md px-16 py-4 mt-3.5 text-lg block text-center'>Issue Certificate</Link>
                     </div>
                 </div>
-
-                    <div className='pl-28'>
-                        <Link to='/previewpdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md p-3 px-17 py-2.5 mt-3.5'>Issue Certificate</Link>
-                    </div>
 
             </div>
         </form>
