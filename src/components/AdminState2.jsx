@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { LockKeyholeOpen } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom' // ✅ import useLocation
 
 const AdminState2 = () => {
+    const { state } = useLocation(); // ✅ grab the state passed from AdminState1
+    const connectedAddress = state?.address || "No wallet connected"; // ✅ fallback just in case
 
     const [name, setName] = useState("");
 
@@ -25,12 +27,15 @@ const AdminState2 = () => {
                     </div>
 
                     <div>
-                        <p className='text-[#1a7f4b] font-semibold'>0x3f9a...4b2c</p>
+                        {/* ✅ Now shows the real connected wallet address */}
+                        <p className='text-[#1a7f4b] font-semibold'>{connectedAddress}</p>
                     </div>
                 </div>
             </div>
+
+            {/* rest of your form stays exactly the same */}
             <div>
-                <div className='flex flex-row  justify-between mb-3'>
+                <div className='flex flex-row justify-between mb-3'>
                     <div className='flex flex-col'>
                         <label>STUDENT NAME</label>
                         <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58 p-2 rounded-md' value={name} onChange={handleChange} />
@@ -42,14 +47,14 @@ const AdminState2 = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-col justify-between mb-3' >
-                        <label>PROGRAMME</label>
-                        <input type="text" placeholder='B.Sc Computer Science' className='border p-2 rounded-md' />
+                <div className='flex flex-col justify-between mb-3'>
+                    <label>PROGRAMME</label>
+                    <input type="text" placeholder='B.Sc Computer Science' className='border p-2 rounded-md' />
                 </div>
 
                 <div className='flex flex-col justify-center mb-3'>
                     <div className='flex flex-row gap-11 mb-4'>
-                        <div className='flex flex-col '>
+                        <div className='flex flex-col'>
                             <label>CLASSIFICATION</label>
                             <select className='border w-60 p-2 bg-amber-50 rounded-md gap-1.5'>
                                 <option value="">First Class</option>
@@ -62,22 +67,20 @@ const AdminState2 = () => {
                         </div>
 
                         <div className='flex flex-col'>
-                        <label>DATE OF GRADUATION:</label>
-                        <input type="text" placeholder='20/2027' className='border w-58 p-2 rounded-md' />
+                            <label>DATE OF GRADUATION:</label>
+                            <input type="text" placeholder='20/2027' className='border w-58 p-2 rounded-md' />
                         </div>
-
                     </div>
 
-                        <div className='flex flex-row justify-center gap-2 items-center mb-4'>
-                            <label>DATE ISSUED:</label>
-                            <p className='rounded-md'> {new Date().toLocaleDateString()}  </p>
-                        </div>
+                    <div className='flex flex-row justify-center gap-2 items-center mb-4'>
+                        <label>DATE ISSUED:</label>
+                        <p className='rounded-md'>{new Date().toLocaleDateString()}</p>
+                    </div>
 
                     <div className='flex justify-center items-center'>
                         <Link to='/previewpdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md px-16 py-4 mt-3.5 text-lg block text-center'>Issue Certificate</Link>
                     </div>
                 </div>
-
             </div>
         </form>
       </div>

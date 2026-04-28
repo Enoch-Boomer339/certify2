@@ -28,7 +28,7 @@ const AdminState1 = () => {
       const connectedAddress = accounts[0].toLowerCase();
 
       if (ADMIN_ADDRESSES.includes(connectedAddress)) {
-        navigate('/admin2');
+        navigate('/admin2', { state: { address: accounts[0] } });
       } else {
         alert("Access Denied: This wallet is not an authorized admin.");
       }
