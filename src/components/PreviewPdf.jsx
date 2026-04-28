@@ -1,15 +1,14 @@
-
-import React, { useState } from 'react'
+import React from 'react'
 import CertificatePdf from './CertificatePdf'
 import { PDFViewer, Font, StyleSheet } from '@react-pdf/renderer'
+import { useLocation } from 'react-router-dom' // ✅ add this
 
 Font.register({
   family: 'Oswald',
   src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
 });
 
-
-  const stylez = StyleSheet.create({
+const stylez = StyleSheet.create({
   page: {
     padding: 40,
     fontSize: 14,
@@ -17,7 +16,6 @@ Font.register({
     height: "100%",
     textAlign: "center"
   },
-
   watermark: {
     position: "absolute",
     width: "50%",
@@ -27,7 +25,6 @@ Font.register({
     opacity: 0.1,
     zIndex: -1
   },
-
   border: {
     border: "5pt solid #006400",
     padding: 25,
@@ -37,7 +34,6 @@ Font.register({
     flexDirection: "column",
     justifyContent: "center"
   },
-
   logo: {
     width: 120,
     height: 120,
@@ -45,13 +41,10 @@ Font.register({
     alignSelf: "center",
     borderRadius: 60
   },
-
   crest: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
-    alignSelf: "center",
-    borderRadius: 60
+    width: 80,        // ✅ reduced from 120 — was too big and getting clipped
+    height: 80,
+    borderRadius: 40,
   },
 
   title: {
@@ -60,14 +53,12 @@ Font.register({
     color: "#D4AF37",
     fontFamily: "Oswald"
   },
-
   subtitle: {
     fontSize: 20,
     marginBottom: 20,
     color: "green",
     fontFamily: "Times-Roman"
   },
-
   classdes: {
     fontSize: 16,
     marginBottom: 20,
@@ -75,7 +66,6 @@ Font.register({
     fontFamily: "Times-Roman",
     color: "#333333"
   },
-
   classification: {
     fontSize: 26,
     marginLeft: 5,
@@ -83,11 +73,8 @@ Font.register({
     fontFamily: "Oswald",
     fontWeight: "bold",
     textTransform: "uppercase",
-    lineHeight: 1,
-    borderBottom: "1pt solid #000",
-
+    lineHeight: 1
   },
-
   classificationContainer: {
     display: "flex",
     flexDirection: "row",
@@ -96,7 +83,6 @@ Font.register({
     justifyContent: "center",
     marginBottom: 27
   },
-
   name: {
     fontSize: 34,
     marginVertical: 10,
@@ -104,21 +90,18 @@ Font.register({
     fontFamily: "Oswald",
     fontWeight: "black"
   },
-
   body: {
     fontSize: 16,
     marginBottom: 10,
     fontFamily: "Times-Roman",
     color: "#333333"
   },
-
   text: {
     fontSize: 18,
     marginBottom: 20,
     color: "green",
     fontFamily: "Times-Roman"
   },
-
   officials: {
     borderTop: "1pt solid #000",
     width: 150,
@@ -127,19 +110,16 @@ Font.register({
     fontFamily: "Times-Roman",
     paddingTop: 5
   },
-
   date: {
     fontSize: 12,
     color: "grey",
     marginLeft: 6
   },
-
   official_and_date: {
     display: "flex",
-    flexDirection: "coloumn",
+    flexDirection: "column",
     alignItems: "center"
   },
-
   footer1: {
     display: "flex",
     flexDirection: "row",
@@ -147,10 +127,10 @@ Font.register({
   },
 
   footer2: {
+    marginTop: 15,
     display: "flex",
-    flexDirection: "coluumn",
-    textAlign: "center",
-    gap:10
+    flexDirection: "column",
+    alignItems: "center",
   },
 
   qrcrest: {
@@ -158,32 +138,34 @@ Font.register({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 15
+    gap: 20,
   },
 
   hash: {
-    fontSize: 19,
-    marginTop: 10,
-    fontFamily: "Times-Roman"
+    fontSize: 12,     // ✅ smaller so it fits
+    marginTop: 8,
+    fontFamily: "Times-Roman",
+    textAlign: "center",
+    color: "#555555"
   }
-
-
 })
 
-
 const PreviewPdf = () => {
+  const { state } = useLocation(); // ✅ receives data from AdminState2
 
-  const [certificateData, setCertificateData] = useState({name: ""});
-
-  const handlePreview = (input) => {
-    setCertificateData(input)
+  // ✅ Guard: if no data, show error instead of crashing
+  if (!state) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-500 text-xl">No certificate data found. Please fill the form first.</p>
+      </div>
+    );
   }
- 
 
   return (
     <div style={{width:'100%', height: '100vh'}}>
       <PDFViewer width='100%' height='100%'>
-        <CertificatePdf styles={stylez} />
+        <CertificatePdf styles={stylez} data={state} />
       </PDFViewer>
     </div>
   )

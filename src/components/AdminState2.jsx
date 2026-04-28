@@ -1,16 +1,31 @@
 import React, { useState } from 'react'
 import { LockKeyholeOpen } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom' // ✅ import useLocation
+import { useLocation, useNavigate } from 'react-router-dom' // ✅ add useNavigate
 
 const AdminState2 = () => {
-    const { state } = useLocation(); // ✅ grab the state passed from AdminState1
-    const connectedAddress = state?.address || "No wallet connected"; // ✅ fallback just in case
+    const { state } = useLocation();
+    const connectedAddress = state?.address || "No wallet connected";
+    const navigate = useNavigate(); // ✅
 
     const [name, setName] = useState("");
+    const [matricNo, setMatricNo] = useState(""); // ✅
+    const [programme, setProgramme] = useState(""); // ✅
+    const [classification, setClassification] = useState("First Class"); // ✅
+    const [graduationDate, setGraduationDate] = useState(""); // ✅
 
-    const handleChange = (e) => {
-        setName(e.target.value);
-    }
+    const handleIssueCertificate = () => {
+        // ✅ Send all form data to PreviewPdf
+        navigate('/previewpdf', {
+            state: {
+                name,
+                matricNo,
+                programme,
+                classification,
+                graduationDate,
+                dateIssued: new Date().toLocaleDateString()
+            }
+        });
+    };
 
   return (
     <div>
@@ -20,55 +35,75 @@ const AdminState2 = () => {
                 <div>
                     <LockKeyholeOpen className='text-[#b48c32] mt-1.7 mr-2'/>
                 </div>
-
                 <div>
-                    <div>
-                        <h3 className='text-2xl font-semibold text-[#1a7f4b]'>Wallet Connected</h3>
-                    </div>
-
-                    <div>
-                        {/* ✅ Now shows the real connected wallet address */}
-                        <p className='text-[#1a7f4b] font-semibold'>{connectedAddress}</p>
-                    </div>
+                    <h3 className='text-2xl font-semibold text-[#1a7f4b]'>Wallet Connected</h3>
+                    <p className='text-[#1a7f4b] font-semibold'>{connectedAddress}</p>
                 </div>
             </div>
 
-            {/* rest of your form stays exactly the same */}
             <div>
                 <div className='flex flex-row justify-between mb-3'>
                     <div className='flex flex-col'>
                         <label>STUDENT NAME</label>
-                        <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58 p-2 rounded-md' value={name} onChange={handleChange} />
+                        <input 
+                            type="text" 
+                            placeholder='Enoch Methuselah Ezekiel' 
+                            className='border w-58 p-2 rounded-md' 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} // ✅
+                        />
                     </div>
 
                     <div className='flex flex-col'>
                         <label>MATRIC NUMBER</label>
-                        <input type="text" placeholder='CIS/CSC/22/041' className='border w-50 p-2 rounded-md' />
+                        <input 
+                            type="text" 
+                            placeholder='CIS/CSC/22/041' 
+                            className='border w-50 p-2 rounded-md'
+                            value={matricNo}
+                            onChange={(e) => setMatricNo(e.target.value)} // ✅
+                        />
                     </div>
                 </div>
 
                 <div className='flex flex-col justify-between mb-3'>
                     <label>PROGRAMME</label>
-                    <input type="text" placeholder='B.Sc Computer Science' className='border p-2 rounded-md' />
+                    <input 
+                        type="text" 
+                        placeholder='B.Sc Computer Science' 
+                        className='border p-2 rounded-md'
+                        value={programme}
+                        onChange={(e) => setProgramme(e.target.value)} // ✅
+                    />
                 </div>
 
                 <div className='flex flex-col justify-center mb-3'>
                     <div className='flex flex-row gap-11 mb-4'>
                         <div className='flex flex-col'>
                             <label>CLASSIFICATION</label>
-                            <select className='border w-60 p-2 bg-amber-50 rounded-md gap-1.5'>
-                                <option value="">First Class</option>
-                                <option value="first">Second Class Upper Division</option>
-                                <option value="second">Second Class Lower Division</option>
-                                <option value="third">Third Class Upper Division</option>
-                                <option value="fourth">Third Class Lower Division</option>
-                                <option value="fifth">Pass</option>
+                            <select 
+                                className='border w-60 p-2 bg-amber-50 rounded-md'
+                                value={classification}
+                                onChange={(e) => setClassification(e.target.value)} // ✅
+                            >
+                                <option value="First Class">First Class</option>
+                                <option value="Second Class Upper Division">Second Class Upper Division</option>
+                                <option value="Second Class Lower Division">Second Class Lower Division</option>
+                                <option value="Third Class Upper Division">Third Class Upper Division</option>
+                                <option value="Third Class Lower Division">Third Class Lower Division</option>
+                                <option value="Pass">Pass</option>
                             </select>
                         </div>
 
                         <div className='flex flex-col'>
                             <label>DATE OF GRADUATION:</label>
-                            <input type="text" placeholder='20/2027' className='border w-58 p-2 rounded-md' />
+                            <input 
+                                type="text" 
+                                placeholder='20/2027' 
+                                className='border w-58 p-2 rounded-md'
+                                value={graduationDate}
+                                onChange={(e) => setGraduationDate(e.target.value)} // ✅
+                            />
                         </div>
                     </div>
 
@@ -78,7 +113,14 @@ const AdminState2 = () => {
                     </div>
 
                     <div className='flex justify-center items-center'>
-                        <Link to='/previewpdf' className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] hover:cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md px-16 py-4 mt-3.5 text-lg block text-center'>Issue Certificate</Link>
+                        {/* ✅ Changed from Link to button */}
+                        <button
+                            type="button"
+                            onClick={handleIssueCertificate}
+                            className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md px-16 py-4 mt-3.5 text-lg'
+                        >
+                            Issue Certificate
+                        </button>
                     </div>
                 </div>
             </div>
@@ -88,4 +130,4 @@ const AdminState2 = () => {
   )
 }
 
-export default AdminState2
+export default AdminState2;
