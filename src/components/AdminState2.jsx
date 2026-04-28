@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LockKeyholeOpen } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const AdminState2 = () => {
+
+    const [name, setName] = useState("");
+
+    const handleChange = (e) => {
+        setName(e.target.value);
+    }
+
   return (
     <div>
       <div className='flex flex-col justify-center items-center'>
@@ -26,7 +33,7 @@ const AdminState2 = () => {
                 <div className='flex flex-row  justify-between mb-3'>
                     <div className='flex flex-col'>
                         <label>STUDENT NAME</label>
-                        <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58 p-2 rounded-md' />
+                        <input type="text" placeholder='Enoch Methuselah Ezekiel' className='border w-58 p-2 rounded-md' value={name} onChange={handleChange} />
                     </div>
 
                     <div className='flex flex-col'>

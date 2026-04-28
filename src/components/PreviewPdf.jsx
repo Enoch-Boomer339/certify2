@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import CertificatePdf from './CertificatePdf'
 import { PDFViewer, Font, StyleSheet } from '@react-pdf/renderer'
 
@@ -46,6 +46,14 @@ Font.register({
     borderRadius: 60
   },
 
+  crest: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+    alignSelf: "center",
+    borderRadius: 60
+  },
+
   title: {
     fontSize: 33,
     marginBottom: 20,
@@ -55,37 +63,51 @@ Font.register({
 
   subtitle: {
     fontSize: 20,
-    marginBottom: 40,
+    marginBottom: 20,
     color: "green",
     fontFamily: "Times-Roman"
   },
 
   classdes: {
     fontSize: 16,
-    marginBottom: 40,
+    marginBottom: 20,
+    marginRight: 2,
     fontFamily: "Times-Roman",
     color: "#333333"
   },
 
   classification: {
     fontSize: 26,
-    marginVertical: 10,
+    marginLeft: 5,
     color: "#002147",
     fontFamily: "Oswald",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    lineHeight: 1,
+    borderBottom: "1pt solid #000",
+
+  },
+
+  classificationContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "baseline",
+    justifyContent: "center",
+    marginBottom: 27
   },
 
   name: {
-    fontSize: 26,
+    fontSize: 34,
     marginVertical: 10,
     color: "#002147",
     fontFamily: "Oswald",
-    fontWeight: "bold"
+    fontWeight: "black"
   },
 
   body: {
     fontSize: 16,
-    marginBottom: 40,
+    marginBottom: 10,
     fontFamily: "Times-Roman",
     color: "#333333"
   },
@@ -150,6 +172,12 @@ Font.register({
 
 
 const PreviewPdf = () => {
+
+  const [certificateData, setCertificateData] = useState({name: ""});
+
+  const handlePreview = (input) => {
+    setCertificateData(input)
+  }
  
 
   return (

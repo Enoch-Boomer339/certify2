@@ -1,5 +1,6 @@
 import { Document, Page, Text, View, Image } from '@react-pdf/renderer'
 import FuwLogo from '../assets/fuwlogo2.png'
+import Crest from '../assets/crest.png'
 import React from 'react'
 
 const CertificatePdf = ({styles}) => {
@@ -21,7 +22,10 @@ const CertificatePdf = ({styles}) => {
                     <Text style={styles.text}>This Certificate Is Proudly Presented To:</Text>
                     <Text style={styles.name}>Ezekiel Enoch Methuselah</Text>
                     <Text style={styles.body}>Your hardwork, intellectual curiosity, and dedication to personal growth have set a high standard of excellence within the school system. This Certificate honors your remarkable academic journey and success.</Text>
-                    <Text style={styles.classdes}>Classification:<Text style={styles.classification}>First Class Division</Text></Text>
+                   <View style={styles.classificationContainer}>
+                    <Text style={styles.classdes}>Classification:</Text>
+                    <Text style={styles.classification}>First Class Division</Text>
+                    </View>
 
 
                     <View style={styles.footer1}>
@@ -35,7 +39,7 @@ const CertificatePdf = ({styles}) => {
                     <View style={styles.footer2}>
                         <View style={styles.qrcrest}>
                             <Text>qr code</Text>
-                            <Text>graduation crest</Text>
+                            <Image style={styles.crest} src={Crest} alt='crest'/>
                         </View>
                         <Text style={styles.hash}>/*cert hash*/</Text>
                     </View>
