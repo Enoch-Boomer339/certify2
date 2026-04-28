@@ -51,6 +51,7 @@ const AdminState2 = () => {
                             className='border w-58 p-2 rounded-md' 
                             value={name} 
                             onChange={(e) => setName(e.target.value)} // ✅
+                            required
                         />
                     </div>
 
@@ -62,6 +63,7 @@ const AdminState2 = () => {
                             className='border w-50 p-2 rounded-md'
                             value={matricNo}
                             onChange={(e) => setMatricNo(e.target.value)} // ✅
+                            required
                         />
                     </div>
                 </div>
@@ -74,6 +76,7 @@ const AdminState2 = () => {
                         className='border p-2 rounded-md'
                         value={programme}
                         onChange={(e) => setProgramme(e.target.value)} // ✅
+                        required
                     />
                 </div>
 
@@ -85,6 +88,7 @@ const AdminState2 = () => {
                                 className='border w-60 p-2 bg-amber-50 rounded-md'
                                 value={classification}
                                 onChange={(e) => setClassification(e.target.value)} // ✅
+                                required
                             >
                                 <option value="First Class">First Class</option>
                                 <option value="Second Class Upper Division">Second Class Upper Division</option>
@@ -98,11 +102,12 @@ const AdminState2 = () => {
                         <div className='flex flex-col'>
                             <label>DATE OF GRADUATION:</label>
                             <input 
-                                type="text" 
+                                type="date" 
                                 placeholder='20/2027' 
                                 className='border w-58 p-2 rounded-md'
                                 value={graduationDate}
                                 onChange={(e) => setGraduationDate(e.target.value)} // ✅
+                                required
                             />
                         </div>
                     </div>
@@ -115,7 +120,7 @@ const AdminState2 = () => {
                     <div className='flex justify-center items-center'>
                         {/* ✅ Changed from Link to button */}
                         <button
-                            type="button"
+                            type="submit"
                             onClick={handleIssueCertificate}
                             className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] cursor-pointer transition-colors duration-200 bg-[#0d2a4e] rounded-md px-16 py-4 mt-3.5 text-lg'
                         >
