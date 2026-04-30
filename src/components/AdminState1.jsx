@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { LockKeyhole } from 'lucide-react';
+import MetaMaskLogo from '../assets/MetaMask-icon-fox.svg';
 import { useNavigate } from 'react-router-dom';
 
 // ✅ Moved outside component — only created once, not on every render
@@ -50,7 +50,7 @@ const AdminState1 = () => {
     <div className='flex justify-center items-center min-w-80 min-h-96'>
       <div className='flex flex-col items-center justify-between'>
         <div>
-          <LockKeyhole className='text-[#b48c32] h-34 w-35 mb-7'/>
+          <img src={MetaMaskLogo} alt='Metamask logo' className='text-[#b48c32] h-34 w-35 mb-7'/>
         </div>
 
         <div className='mb-6 text-center'>

@@ -7,6 +7,7 @@ import ThirdPage from './pages/ThirdPage'
 import AdminPage from './pages/AdminPage'
 import AdminPage2 from './pages/adminPage2'
 import PreviewPdf from './components/PreviewPdf'
+import ProtectRoute from './components/ProtectRoute'
 
 
 
@@ -21,8 +22,11 @@ const App = () => {
 				<Route path='/verify' element={<SecondPage />} />
 				<Route path='/result' element={<ThirdPage />} />
 				<Route path='/admin' element={<AdminPage />} />
-				<Route path='/admin2' element={<AdminPage2 />} />
-				<Route path='/previewpdf' element={<PreviewPdf />} />
+				<Route path='/admin2' element={<ProtectRoute>
+					<AdminPage2 />
+				</ProtectRoute>} />
+				<Route path='/previewpdf' element={ <ProtectRoute> <PreviewPdf />
+				</ProtectRoute>} />
 				
 			</Routes>
 		</BrowserRouter>
