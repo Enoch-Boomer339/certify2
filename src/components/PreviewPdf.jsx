@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CertificatePdf from './CertificatePdf'
-import { PDFViewer, Font, StyleSheet } from '@react-pdf/renderer'
-import { useLocation } from 'react-router-dom' // ✅ add this
+import { PDFViewer, PDFDownloadLink, Font, StyleSheet } from '@react-pdf/renderer'
+import { useLocation } from 'react-router-dom'
+import { pdf } from '@react-pdf/renderer'
+import { uploadToIPFS, storeOnBlockchain } from '../service/CertificateService'
 
 Font.register({
   family: 'Oswald',
@@ -42,11 +44,10 @@ const stylez = StyleSheet.create({
     borderRadius: 60
   },
   crest: {
-    width: 80,        // ✅ reduced from 120 — was too big and getting clipped
+    width: 80,
     height: 80,
-    borderRadius: 40,
+    borderRadius: 40
   },
-
   title: {
     fontSize: 33,
     marginBottom: 20,
@@ -123,37 +124,42 @@ const stylez = StyleSheet.create({
   footer1: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginBottom: 20
   },
-
   footer2: {
-    marginTop: 15,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    gap: 10
   },
-
   qrcrest: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 20,
+    gap: 20
   },
-
+  qr: {
+    width: 80,
+    height: 80
+  },
   hash: {
-    fontSize: 12,     // ✅ smaller so it fits
-    marginTop: 8,
+    fontSize: 9,
+    marginTop: 5,
     fontFamily: "Times-Roman",
-    textAlign: "center",
     color: "#555555"
   }
 })
 
 const PreviewPdf = () => {
-  const { state } = useLocation(); // ✅ receives data from AdminState2
+  const { state } = useLocation();
 
-  // ✅ Guard: if no data, show error instead of crashing
+  const [cid, setCid] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [step, setStep] = useState("");
+  const [txHash, setTxHash] = useState(null);
+
   if (!state) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -162,11 +168,98 @@ const PreviewPdf = () => {
     );
   }
 
+  const handleIssue = async () => {
+    try {
+      setIsProcessing(true);
+
+      // Step 1: Generate PDF blob WITHOUT cid (no QR yet)
+      setStep("Generating PDF...");
+      const pdfBlob = await pdf(
+        <CertificatePdf styles={stylez} data={state} cid={null} txHash={txHash} />
+      ).toBlob();
+
+      // Step 2: Upload to IPFS
+      setStep("Uploading to IPFS...");
+      const newCid = await uploadToIPFS(
+        pdfBlob,
+        `certificate_${state.matricNo}.pdf`
+      );
+      console.log("IPFS CID:", newCid);
+
+      // Step 3: Store on blockchain
+      setStep("Storing on blockchain... (confirm in MetaMask)");
+      const hash = await storeOnBlockchain(newCid, state);
+      console.log("TX Hash:", hash);
+
+      setTxHash(hash);
+      setCid(newCid); // ✅ triggers certificate to re-render with QR + hash
+
+      setStep("");
+
+    } catch (error) {
+      console.error("Failed:", error);
+      alert(`Error: ${error.message}`);
+      setStep("");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
-    <div style={{width:'100%', height: '100vh'}}>
-      <PDFViewer width='100%' height='100%'>
-        <CertificatePdf styles={stylez} data={state} />
-      </PDFViewer>
+    <div className='flex flex-col' style={{ width: '100%', height: '100vh' }}>
+
+      {/* Top bar */}
+      <div className='flex justify-between items-center px-6 py-3 bg-[#0d2a4e]'>
+        <h2 className='text-[#b48c32] font-semibold'>Certificate Preview</h2>
+
+        <div className='flex gap-4 items-center'>
+          {/* Issue button — hidden after blockchain storage */}
+          {!cid && (
+            <button
+              onClick={handleIssue}
+              disabled={isProcessing}
+              className='bg-[#b48c32] text-white hover:bg-[#caab63] transition-colors duration-200 rounded-md px-6 py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed'
+            >
+              {isProcessing ? step : "Issue to Blockchain"}
+            </button>
+          )}
+
+          {/* Download button — appears after blockchain storage */}
+          {cid && (
+            <PDFDownloadLink
+              document={<CertificatePdf styles={stylez} data={state} cid={cid} txHash={txHash} />}
+              fileName={`certificate_${state.matricNo}.pdf`}
+              className='bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 rounded-md px-6 py-2 font-medium'
+            >
+              {({ loading }) => loading ? "Preparing..." : "Download Certificate"}
+            </PDFDownloadLink>
+          )}
+        </div>
+      </div>
+
+      {/* Success bar */}
+      {cid && (
+        <div className='flex justify-between items-center px-6 py-2 bg-green-700 text-white text-sm'>
+          <span>✅ Certificate issued on Sepolia blockchain</span>
+          
+          <a
+            href={`https://sepolia.etherscan.io/tx/${txHash}`}
+            target="_blank"
+            rel="noreferrer"
+            className='text-yellow-300 underline'
+          >
+            View Transaction
+          </a>
+        </div>
+      )}
+
+      {/* PDF Viewer */}
+      <div style={{ flex: 1 }}>
+        <PDFViewer width='100%' height='100%'>
+          <CertificatePdf styles={stylez} data={state} cid={cid} txHash={txHash} />
+        </PDFViewer>
+      </div>
+
     </div>
   )
 }

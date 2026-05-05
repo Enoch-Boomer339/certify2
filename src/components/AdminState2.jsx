@@ -27,7 +27,8 @@ const AdminState2 = () => {
                 programme,
                 classification,
                 graduationDate,
-                dateIssued: new Date().toLocaleDateString()
+                dateIssued: new Date().toLocaleDateString(),
+                address: state?.address
             }
         });
     };

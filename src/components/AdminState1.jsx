@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // ✅ Moved outside component — only created once, not on every render
 const ADMIN_ADDRESSES = [
-  "0xB3D576713C58455711a1940b4e95AfDC57A2a26a",
-  "0x5678...yourAdminAddress2"
+  "0xB3D576713C58455711a1940b4e95AfDC57A2a26a"
 ].map(addr => addr.toLowerCase());
 
 const AdminState1 = () => {

@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../components/NavBar'
 import Hero from '../components/Hero'
 import Stats from '../components/Stats'
+import Footer from '../components/Footer'
 
 
 const FirstPage = () => {
@@ -11,6 +12,7 @@ const FirstPage = () => {
       <NavBar />
       <Hero />
       <Stats />
+      <Footer />
       
       
 
