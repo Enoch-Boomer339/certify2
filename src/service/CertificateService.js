@@ -64,17 +64,24 @@ export const verifyCertificate = async (txHash) => {
     const provider = new ethers.JsonRpcProvider(ALCHEMY_RPC);
 
     const tx = await provider.getTransaction(txHash);
-    console.log("TX found:", tx);
+    
+    // If transaction not found, return null instead of throwing
     if (!tx) return null;
 
     const iface = new ethers.Interface(CONTRACT_ABI);
-    const decoded = iface.parseTransaction({ data: tx.data });
+    
+    let decoded;
+    try {
+      decoded = iface.parseTransaction({ data: tx.data });
+    } catch {
+      // Transaction exists but isn't a certificate transaction
+      return null;
+    }
+    
     const cid = decoded.args[0];
-    console.log("CID decoded:", cid);
 
     const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
     const result = await contract.verifyCertificate(cid);
-    console.log("Contract result:", result);
 
     if (!result.found) return null;
 
@@ -89,6 +96,6 @@ export const verifyCertificate = async (txHash) => {
     };
   } catch (err) {
     console.error("verifyCertificate error:", err);
-    throw err;
+    return null; // ← return null instead of throwing so it shows "not found"
   }
 };
