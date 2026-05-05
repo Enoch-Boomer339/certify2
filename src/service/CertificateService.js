@@ -59,27 +59,35 @@ export const storeOnBlockchain = async (cid, studentData) => {
 
 // ✅ KEEP YOUR EXISTING verifyCertificate
 export const verifyCertificate = async (txHash) => {
-  const provider = new ethers.JsonRpcProvider(ALCHEMY_RPC);
+  try {
+    const provider = new ethers.JsonRpcProvider(ALCHEMY_RPC);
 
-  const tx = await provider.getTransaction(txHash);
-  if (!tx) return null;
+    const tx = await provider.getTransaction(txHash);
+    console.log("TX found:", tx);
+    if (!tx) return null;
 
-  const iface = new ethers.Interface(CONTRACT_ABI);
-  const decoded = iface.parseTransaction({ data: tx.data });
-  const cid = decoded.args[0];
+    const iface = new ethers.Interface(CONTRACT_ABI);
+    const decoded = iface.parseTransaction({ data: tx.data });
+    const cid = decoded.args[0];
+    console.log("CID decoded:", cid);
 
-  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-  const result = await contract.verifyCertificate(cid);
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+    const result = await contract.verifyCertificate(cid);
+    console.log("Contract result:", result);
 
-  if (!result.found) return null;
+    if (!result.found) return null;
 
-  return {
-    found: true,
-    studentName: result.studentName,
-    matricNo: result.matricNo,
-    programme: result.programme,
-    classification: result.classification,
-    dateIssued: result.dateIssued,
-    graduationDate: result.graduationDate
-  };
+    return {
+      found: true,
+      studentName: result.studentName,
+      matricNo: result.matricNo,
+      programme: result.programme,
+      classification: result.classification,
+      dateIssued: result.dateIssued,
+      graduationDate: result.graduationDate
+    };
+  } catch (err) {
+    console.error("verifyCertificate error:", err);
+    throw err;
+  }
 };

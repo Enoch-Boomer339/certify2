@@ -32,14 +32,25 @@ const Verify = () => {
     }
   };
 
-    const handleStartScan = async () => {
+      const handleStartScan = async () => {
     setIsScanning(true);
     try {
+      // ✅ Request camera permission first
+      await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+
       const codeReader = new BrowserMultiFormatReader();
       readerRef.current = codeReader;
 
       const devices = await BrowserMultiFormatReader.listVideoInputDevices();
-      const deviceId = devices[0]?.deviceId;
+      console.log("Devices found:", devices);
+      
+      // ✅ On mobile, pick the back camera if available
+      const backCamera = devices.find(d => 
+        d.label.toLowerCase().includes('back') || 
+        d.label.toLowerCase().includes('rear') ||
+        d.label.toLowerCase().includes('environment')
+      );
+      const deviceId = backCamera?.deviceId || devices[0]?.deviceId;
 
       if (!deviceId) {
         alert("No camera found.");
@@ -52,21 +63,18 @@ const Verify = () => {
         videoRef.current,
         async (result, err) => {
           if (result) {
-            const txHash = result.getText(); // ← just get the txHash directly
-
+            const txHash = result.getText();
             stopScan();
             setIsLoading(true);
-
             const verifyResult = await verifyCertificate(txHash);
             navigate('/result', { state: verifyResult || { found: false } });
-            
             setIsLoading(false);
           }
         }
       );
     } catch (err) {
       console.error("Camera error:", err);
-      alert("Could not access camera.");
+      alert("Could not access camera. Please allow camera permission.");
       setIsScanning(false);
     }
   };
