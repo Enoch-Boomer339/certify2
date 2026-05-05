@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CertificatePdf from './CertificatePdf'
 import { PDFViewer, PDFDownloadLink, Font, StyleSheet } from '@react-pdf/renderer'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { pdf } from '@react-pdf/renderer'
 import { uploadToIPFS, storeOnBlockchain } from '../service/CertificateService'
 
@@ -154,6 +154,7 @@ const stylez = StyleSheet.create({
 
 const PreviewPdf = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const [cid, setCid] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -238,9 +239,11 @@ const PreviewPdf = () => {
       </div>
 
       {/* Success bar */}
-      {cid && (
-        <div className='flex justify-between items-center px-6 py-2 bg-green-700 text-white text-sm'>
-          <span>✅ Certificate issued on Sepolia blockchain</span>
+    {cid && (
+      <div className='flex justify-between items-center px-6 py-2 bg-green-700 text-white text-sm'>
+        <span>✅ Certificate issued on Sepolia blockchain</span>
+        
+        <div className='flex items-center gap-4'>
           
           <a
             href={`https://sepolia.etherscan.io/tx/${txHash}`}
@@ -250,8 +253,15 @@ const PreviewPdf = () => {
           >
             View Transaction
           </a>
+          <button
+            onClick={() => navigate('/admin2', { state: { address: state?.address } })}
+            className='bg-white text-green-700 hover:bg-gray-100 transition-colors duration-200 rounded-md px-4 py-1.5 font-medium cursor-pointer'
+          >
+            Issue Another Certificate
+          </button>
         </div>
-      )}
+      </div>
+    )}
 
       {/* PDF Viewer */}
       <div style={{ flex: 1 }}>
