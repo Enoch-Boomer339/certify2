@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+console.log("ALCHEMY RPC:", import.meta.env.VITE_ALCHEMY_RPC);
 
 const PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
 const ALCHEMY_RPC = import.meta.env.VITE_ALCHEMY_RPC;
