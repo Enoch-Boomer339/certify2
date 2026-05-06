@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, Image } from '@react-pdf/renderer'
+import { Document, Page, Text, View, Image, Link } from '@react-pdf/renderer'
 import FuwLogo from '../assets/fuwlogo2.png'
 import Crest from '../assets/crest.png?url'
 import React, { useState, useEffect } from 'react'
@@ -17,7 +17,7 @@ const CertificatePdf = ({ styles, data, cid, txHash }) => {
 
     useEffect(() => {
     if (txHash) {
-      QRCode.toDataURL(txHash, { width: 80, margin: 1 })
+      QRCode.toDataURL(txHash, { width: 170, margin: 1 })
         .then(url => setQrDataUrl(url))
         .catch(err => console.error("QR Error:", err));
     }
@@ -64,7 +64,11 @@ const CertificatePdf = ({ styles, data, cid, txHash }) => {
 
             {/* Hash — only after blockchain storage */}
             {cid && (
+              <View>
               <Text style={styles.hash}>{"Certificate ID: " + ( txHash || cid )}</Text>
+
+              <Link src="https://certify2-psi.vercel.app/"  style={styles.whereto}>{"Verify at: https://certify2-psi.vercel.app/"}</Link>
+              </View>
             )}
           </View>
 

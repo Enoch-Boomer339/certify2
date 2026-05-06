@@ -141,14 +141,23 @@ const stylez = StyleSheet.create({
     gap: 20
   },
   qr: {
-    width: 80,
-    height: 80
+    width: 120,
+    height: 120
   },
   hash: {
     fontSize: 9,
     marginTop: 5,
     fontFamily: "Times-Roman",
-    color: "#555555"
+    color: "#555555",
+    marginBottom: 3
+  },
+
+  whereto: {
+    fontSize: 9,
+    marginTop: 5,
+    fontFamily: "Times-Roman",
+    color: "#555555",
+    textAlign: "center"
   }
 })
 

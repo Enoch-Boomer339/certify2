@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { verifyCertificate } from '../service/CertificateService.js'
-import { BrowserMultiFormatReader } from '@zxing/browser'
+import { Html5QrcodeScanner } from 'html5-qrcode'
 
 const Verify = () => {
   const [certId, setCertId] = useState("");
@@ -26,45 +26,31 @@ const Verify = () => {
     }
   };
 
-  const handleStartScan = async () => {
+    const handleStartScan = () => {
     setIsScanning(true);
-    try {
-      await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      const codeReader = new BrowserMultiFormatReader();
-      readerRef.current = codeReader;
-      const devices = await BrowserMultiFormatReader.listVideoInputDevices();
-      console.log("Devices found:", devices);
-      const backCamera = devices.find(d =>
-        d.label.toLowerCase().includes('back') ||
-        d.label.toLowerCase().includes('rear') ||
-        d.label.toLowerCase().includes('environment')
-      );
-      const deviceId = backCamera?.deviceId || devices[0]?.deviceId;
-      if (!deviceId) {
-        alert("No camera found.");
-        setIsScanning(false);
-        return;
-      }
-      codeReader.decodeFromVideoDevice(deviceId, videoRef.current, async (result, err) => {
-        if (result) {
-          const txHash = result.getText();
-          stopScan();
-          setIsLoading(true);
-          const verifyResult = await verifyCertificate(txHash);
-          navigate('/result', { state: verifyResult || { found: false } });
-          setIsLoading(false);
-        }
+
+    setTimeout(() => {
+      const scanner = new Html5QrcodeScanner('qr-reader', {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }
       });
-    } catch (err) {
-      console.error("Camera error:", err);
-      alert("Could not access camera. Please allow camera permission.");
-      setIsScanning(false);
-    }
+
+      scanner.render(async (txHash) => {
+        scanner.clear();
+        setIsScanning(false);
+        setIsLoading(true);
+        const verifyResult = await verifyCertificate(txHash);
+        navigate('/result', { state: verifyResult || { found: false } });
+        setIsLoading(false);
+      });
+
+      readerRef.current = scanner;
+    }, 100); // small delay to let the div render first
   };
 
   const stopScan = () => {
     if (readerRef.current) {
-      readerRef.current.reset();
+      readerRef.current.clear();
       readerRef.current = null;
     }
     setIsScanning(false);
@@ -123,26 +109,25 @@ const Verify = () => {
           </div>
 
           {/* QR Scanner */}
-          {!isScanning ? (
-            <button
-              type="button"
-              onClick={handleStartScan}
-              className='bg-[#1a7f4b] text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors w-full text-sm'
-            >
-              📷 Scan QR Code
-            </button>
-          ) : (
-            <div className='flex flex-col items-center gap-2 w-full'>
-              <video ref={videoRef} className='w-full rounded-md' />
-              <button
-                type="button"
-                onClick={stopScan}
-                className='text-red-500 border border-red-500 px-4 py-1 rounded-md text-sm'
-              >
-                Cancel Scan
-              </button>
-            </div>
-          )}
+      {!isScanning ? (
+      <button
+        type="button"
+        onClick={handleStartScan}
+        className='bg-[#1a7f4b] text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors w-full text-sm' >
+      
+        📷 Scan QR Code
+      </button> )
+     : (
+      <div className='w-full'>
+        <div id='qr-reader' className='w-full' />
+        <button
+          type="button"
+          onClick={stopScan}
+          className='text-red-500 border border-red-500 px-4 py-1 rounded-md text-sm mt-2 w-full'>  
+        Cancel Scan
+    </button>
+  </div>
+)}
 
           <p className='text-xs text-gray-500 text-center'>
             The ID starts with "0x" and is printed at the bottom of every certificate issued from 2027 onwards.
