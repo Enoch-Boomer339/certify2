@@ -44,13 +44,13 @@ const stylez = StyleSheet.create({
     borderRadius: 60
   },
   crest: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 40
   },
   title: {
     fontSize: 33,
-    marginBottom: 20,
+    marginBottom: 17,
     color: "#D4AF37",
     fontFamily: "Oswald"
   },
@@ -61,14 +61,14 @@ const stylez = StyleSheet.create({
     fontFamily: "Times-Roman"
   },
   classdes: {
-    fontSize: 16,
-    marginBottom: 20,
-    marginRight: 2,
+    fontSize: 20,
+    marginBottom: 15,
+    marginRight: 1,
     fontFamily: "Times-Roman",
     color: "#333333"
   },
   classification: {
-    fontSize: 26,
+    fontSize: 30,
     marginLeft: 5,
     color: "#002147",
     fontFamily: "Oswald",
@@ -79,13 +79,13 @@ const stylez = StyleSheet.create({
   classificationContainer: {
     display: "flex",
     flexDirection: "row",
-    gap: 5,
+    gap: 3,
     alignItems: "baseline",
     justifyContent: "center",
     marginBottom: 27
   },
   name: {
-    fontSize: 34,
+    fontSize: 35,
     marginVertical: 10,
     color: "#002147",
     fontFamily: "Oswald",
@@ -98,10 +98,11 @@ const stylez = StyleSheet.create({
     color: "#333333"
   },
   text: {
-    fontSize: 18,
-    marginBottom: 20,
-    color: "green",
-    fontFamily: "Times-Roman"
+    fontSize: 21,
+    marginBottom: 12,
+    color: "#b48c32",
+    fontFamily: "Oswald",
+    letterSpacing: 1
   },
   officials: {
     borderTop: "1pt solid #000",
