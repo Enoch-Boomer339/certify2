@@ -9,7 +9,7 @@ const Result = () => {
   // Certificate not found
   if (!state || !state.found) {
     return (
-      <div className='flex flex-col items-center justify-center px-10 py-10'>
+      <div className='flex flex-col items-center justify-center px-4 py-10'>
         <div className='w-full max-w-3xl flex flex-col items-center gap-4'>
           <div className='flex flex-row w-full items-center border rounded-2xl bg-red-50 border-red-400 p-3'>
             <div className='pl-3 pt-1 mr-2 text-2xl'>❌</div>
@@ -31,54 +31,64 @@ const Result = () => {
 
   // Certificate found
   return (
-    <div className='flex flex-col items-center justify-center px-10 py-2'>
+    <div className='flex flex-col items-center justify-center px-4 py-4'>
       <div className='w-full max-w-3xl flex flex-col items-center justify-center gap-4'>
 
+        {/* Valid banner */}
         <div className='flex flex-row w-full items-center border rounded-2xl bg-[#e8f5ee] border-[#1a7f4b] p-3'>
-          <div className='pl-3 pt-3 mr-2'>✅</div>
+          <div className='pl-2 mr-2 text-xl'>✅</div>
           <div>
             <h2 className='text-[#1a7f4b] font-semibold'>Certificate is Valid</h2>
-            <p>Genuine and Issued by Federal University Wukari</p>
+            <p className='text-sm'>Genuine and Issued by Federal University Wukari</p>
           </div>
         </div>
 
+        {/* Certificate card */}
         <div className='w-full flex flex-col border bg-[#e8f5ee] border-[#42554bd3] rounded-xl'>
+
+          {/* Header */}
           <div className='flex flex-row mb-4 rounded-t-xl p-3 bg-[#0d2a4e] items-center gap-3'>
-            <img src={Fuw} alt="Logo" className='w-10 h-10 object-contain' />
-            <div>
-              <h2 style={{ color: 'white' }}>Federal University Wukari</h2>
-              <h3 style={{ color: '#b48c32' }}>Official Academic Certificate</h3>
+            <img src={Fuw} alt="Logo" className='w-10 h-10 object-contain shrink-0' />
+            <div className='min-w-0'>
+              <h2 className='text-white text-base sm:text-lg font-semibold'>Federal University Wukari</h2>
+              <h3 className='text-[#b48c32] text-sm'>Official Academic Certificate</h3>
             </div>
           </div>
 
-          <div className='px-6 pb-6'>
-            <div className='flex flex-row mb-4 justify-between w-full'>
+          {/* Body */}
+          <div className='px-4 sm:px-6 pb-6'>
+
+            {/* Name + Matric — stack on mobile */}
+            <div className='flex flex-col sm:flex-row sm:justify-between gap-3 mb-4'>
               <div>
                 <h3 className='font-semibold text-[#0d2a4e]'>STUDENT NAME</h3>
                 <p>{state.studentName}</p>
               </div>
-              <div>
+              <div className='sm:text-right'>
                 <h3 className='font-semibold text-[#0d2a4e]'>MATRIC NO</h3>
                 <p>{state.matricNo}</p>
               </div>
             </div>
 
+            {/* Programme */}
             <div className='mb-4'>
               <h3 className='font-semibold text-[#0d2a4e]'>PROGRAMME</h3>
               <p>{state.programme}</p>
             </div>
 
-            <div className='flex flex-row justify-between w-full mb-4'>
+            {/* Classification + Date issued — stack on mobile */}
+            <div className='flex flex-col sm:flex-row sm:justify-between gap-3 mb-4'>
               <div>
                 <h3 className='font-semibold text-[#0d2a4e]'>CLASSIFICATION</h3>
                 <p>{state.classification}</p>
               </div>
-              <div>
+              <div className='sm:text-right'>
                 <h3 className='font-semibold text-[#0d2a4e]'>DATE ISSUED</h3>
                 <p>{state.dateIssued}</p>
               </div>
             </div>
 
+            {/* Graduation date */}
             <div>
               <h3 className='font-semibold text-[#0d2a4e]'>DATE OF GRADUATION</h3>
               <p>{state.graduationDate}</p>
@@ -88,7 +98,7 @@ const Result = () => {
 
         <button
           onClick={() => navigate('/verify')}
-          className='text-[#0d2a4e] underline text-sm'
+          className='text-[#0d2a4e] underline text-sm mb-4'
         >
           Verify another certificate
         </button>
