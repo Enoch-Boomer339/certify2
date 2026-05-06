@@ -33,7 +33,7 @@ const CertificatePdf = ({ styles, data, cid, txHash }) => {
 
           <Text style={styles.subtitle}>Federal University Wukari</Text>
           <Text style={styles.title}>Certificate of Achievement</Text>
-          <Text style={styles.text}>This Certificate Is Proudly Presented To:</Text>
+          <Text style={styles.thiscert}>This Certificate Is Proudly Presented To:</Text>
           <Text style={styles.name}>{studentName}</Text>
           <Text style={styles.text}>Matric N0: {matricNo}</Text>
           <Text style={styles.text}>Programme of Study: {programme}</Text>

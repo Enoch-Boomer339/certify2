@@ -61,7 +61,7 @@ const stylez = StyleSheet.create({
     fontFamily: "Times-Roman"
   },
   classdes: {
-    fontSize: 20,
+    fontSize: 24,
     marginBottom: 15,
     marginRight: 1,
     fontFamily: "Times-Roman",
@@ -100,10 +100,19 @@ const stylez = StyleSheet.create({
   text: {
     fontSize: 21,
     marginBottom: 12,
-    color: "#b48c32",
+    color: "#555555",
     fontFamily: "Oswald",
     letterSpacing: 1
   },
+
+  thiscert: {
+    fontSize: 23,
+    marginBottom: 10,
+    color: "#555555",
+    fontFamily: "Oswald",
+    letterSpacing: 1
+  },
+
   officials: {
     borderTop: "1pt solid #000",
     width: 150,
