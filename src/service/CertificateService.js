@@ -10,7 +10,7 @@ const CONTRACT_ABI = [
   "function verifyCertificate(string memory ipfsHash) public view returns (bool found, string memory studentName, string memory matricNo, string memory programme, string memory classification, string memory dateIssued, string memory graduationDate)"
 ];
 
-// ✅ ADD THIS
+
 export const uploadToIPFS = async (pdfPaper, filename) => {
   const formData = new FormData();
   formData.append('file', new File([pdfPaper], filename, { type: 'application/pdf' }));
@@ -32,7 +32,7 @@ export const uploadToIPFS = async (pdfPaper, filename) => {
   return data.IpfsHash;
 };
 
-// ✅ ADD THIS
+
 export const storeOnBlockchain = async (cid, studentData) => {
   const provider = new ethers.BrowserProvider(window.ethereum);
 
@@ -58,14 +58,14 @@ export const storeOnBlockchain = async (cid, studentData) => {
   return tx.hash;
 };
 
-// ✅ KEEP YOUR EXISTING verifyCertificate
+
 export const verifyCertificate = async (txHash) => {
   try {
     const provider = new ethers.JsonRpcProvider(ALCHEMY_RPC);
 
     const tx = await provider.getTransaction(txHash);
     
-    // If transaction not found, return null instead of throwing
+    
     if (!tx) return null;
 
     const iface = new ethers.Interface(CONTRACT_ABI);
@@ -74,7 +74,7 @@ export const verifyCertificate = async (txHash) => {
     try {
       decoded = iface.parseTransaction({ data: tx.data });
     } catch {
-      // Transaction exists but isn't a certificate transaction
+     
       return null;
     }
     
@@ -96,6 +96,6 @@ export const verifyCertificate = async (txHash) => {
     };
   } catch (err) {
     console.error("verifyCertificate error:", err);
-    return null; // ← return null instead of throwing so it shows "not found"
+    return null; 
   }
 };

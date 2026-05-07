@@ -15,7 +15,9 @@ const Result = () => {
             <div className='pl-3 pt-1 mr-2 text-2xl'>❌</div>
             <div>
               <h2 className='text-red-600 font-semibold'>Certificate Not Found</h2>
-              <p className='text-red-500'>This certificate ID does not exist on the blockchain or may be invalid.</p>
+              <p className='text-red-500'>This certificate ID does not exist on the blockchain or may be incorrect.</p>
+              <p className='text-red-500'>For more information contact </p>
+              <a href="https://fuwukari.edu.ng/" rel="noreferrer" target='_blank'>➙Federal University Wukari</a>
             </div>
           </div>
           <button
@@ -70,13 +72,12 @@ const Result = () => {
               </div>
             </div>
 
-            {/* Programme */}
+ 
             <div className='mb-4'>
               <h3 className='font-semibold text-[#0d2a4e]'>PROGRAMME</h3>
               <p>{state.programme}</p>
             </div>
 
-            {/* Classification + Date issued — stack on mobile */}
             <div className='flex flex-col sm:flex-row sm:justify-between gap-3 mb-4'>
               <div>
                 <h3 className='font-semibold text-[#0d2a4e]'>CLASSIFICATION</h3>
@@ -88,7 +89,6 @@ const Result = () => {
               </div>
             </div>
 
-            {/* Graduation date */}
             <div>
               <h3 className='font-semibold text-[#0d2a4e]'>DATE OF GRADUATION</h3>
               <p>{state.graduationDate}</p>

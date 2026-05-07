@@ -20,7 +20,7 @@ const Verify = () => {
       navigate('/result', { state: result || { found: false } });
     } catch (error) {
       console.error("Verification error:", error);
-      navigate('/result', { state: { found: false } }); // ← navigate instead of alert
+      navigate('/result', { state: { found: false } }); 
     } finally {
       setIsLoading(false);
     }
@@ -45,7 +45,7 @@ const Verify = () => {
       });
 
       readerRef.current = scanner;
-    }, 100); // small delay to let the div render first
+    }, 100); 
   };
 
   const stopScan = () => {
