@@ -2,23 +2,23 @@ import React, { useState } from 'react'
 import MetaMaskLogo from '../assets/MetaMask-icon-fox.svg';
 import { useNavigate } from 'react-router-dom';
 
-// ✅ Moved outside component — only created once, not on every render
+
 const ADMIN_ADDRESSES = [
   "0xB3D576713C58455711a1940b4e95AfDC57A2a26a"
 ].map(addr => addr.toLowerCase());
 
 const AdminState1 = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false); // ✅ Loading state
+  const [isLoading, setIsLoading] = useState(false); //  Loading state
 
   const handleConnectWallet = async () => {
     if (!window.ethereum) {
       alert("Please install MetaMask to continue.");
-      return; // ✅ Early return — cleaner than a big if/else
+      return; //  Early return
     }
 
     try {
-      setIsLoading(true); // ✅ Show loading
+      setIsLoading(true); // Show loading
 
       const accounts = await window.ethereum.request({ 
         method: 'eth_requestAccounts' 
@@ -33,7 +33,7 @@ const AdminState1 = () => {
       }
 
     } catch (error) {
-      // ✅ Distinguish between user rejection and other errors
+      // Distinguish between user rejection and other errors
       if (error.code === 4001) {
         alert("Connection cancelled. Please try again.");
       } else {
@@ -41,7 +41,7 @@ const AdminState1 = () => {
         console.error("Connection failed:", error);
       }
     } finally {
-      setIsLoading(false); // ✅ Always reset loading
+      setIsLoading(false); //Always reset loading
     }
   };
 
@@ -60,10 +60,10 @@ const AdminState1 = () => {
         <div className='flex flex-col items-center'>
           <button 
             onClick={handleConnectWallet}
-            disabled={isLoading} // ✅ Prevent double clicks
+            disabled={isLoading} // Prevent double clicks
             className='text-[#b48c32] hover:text-[#caab63] hover:bg-[#11417cd3] transition-colors duration-200 bg-[#0d2a4e] rounded-md py-3 px-10 font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
           >
-            {isLoading ? "Connecting..." : "Connect MetaMask Wallet"} {/* ✅ Dynamic label */}
+            {isLoading ? "Connecting..." : "Connect MetaMask Wallet"} {/* Dynamic label */}
           </button>
         </div>
       </div>

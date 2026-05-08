@@ -212,7 +212,7 @@ const PreviewPdf = () => {
       console.log("TX Hash:", hash);
 
       setTxHash(hash);
-      setCid(newCid); // ✅ triggers certificate to re-render with QR + hash
+      setCid(newCid); //  triggers certificate to re-render with QR + hash
 
       setStep("");
 
